@@ -5,6 +5,8 @@ import com.example.pwbackend.Repositories.SurgeonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SurgeonService {
 
@@ -17,5 +19,9 @@ public class SurgeonService {
 
     public Surgeon getSurgeon(Long id) {
         return surgeonRepository.findById(id).orElse(null);
+    }
+
+    public List<Surgeon> getSurgeons() {
+        return surgeonRepository.findAll();
     }
 }

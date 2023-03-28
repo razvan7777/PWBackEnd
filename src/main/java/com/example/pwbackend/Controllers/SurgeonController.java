@@ -5,6 +5,8 @@ import com.example.pwbackend.Services.SurgeonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/surgeons")
 public class SurgeonController {
@@ -20,5 +22,9 @@ public class SurgeonController {
     @GetMapping("/{id}")
     public Surgeon getSurgeon(@PathVariable Long id) {
         return surgeonService.getSurgeon(id);
+    }
+    @GetMapping
+    public List<Surgeon> getSurgeons() {
+        return surgeonService.getSurgeons();
     }
 }
