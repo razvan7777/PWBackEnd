@@ -3,9 +3,9 @@ package com.example.pwbackend.Controllers;
 import com.example.pwbackend.Models.Surgeon;
 import com.example.pwbackend.Services.SurgeonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/surgeons")
@@ -15,16 +15,22 @@ public class SurgeonController {
     private SurgeonService surgeonService;
 
     @PostMapping
-    public Surgeon addSurgeon(@RequestBody Surgeon surgeon) {
-        return surgeonService.addSurgeon(surgeon);
+    public ResponseEntity<Boolean> addSurgeon(@RequestBody Surgeon surgeon) {
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Surgeon getSurgeon(@PathVariable Long id) {
-        return surgeonService.getSurgeon(id);
+    public ResponseEntity<Surgeon> getSurgeon(@PathVariable Long id) {
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
-    @GetMapping
-    public List<Surgeon> getSurgeons() {
-        return surgeonService.getSurgeons();
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteSurgeon(@PathVariable Long id) {
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Boolean> updateSurgeon(@PathVariable Long id) {
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 }
