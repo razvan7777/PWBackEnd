@@ -21,13 +21,7 @@ public class AuthenticationController {
   private final AuthenticationService authenticationService;
 
   @Operation(
-          summary = "register an user",
-          description =
-                  """
-                  Register an User
-                  
-                  __Usage:__ localhost:8080/auth/register
-                  """
+          summary = "register an user"
   )
   @ApiResponses(value = {
           @ApiResponse(
@@ -43,11 +37,41 @@ public class AuthenticationController {
   ) {
     return ResponseEntity.ok(authenticationService.register(request));
   }
+
+  @Operation(
+          summary = "authenticate an user"
+  )
+  @ApiResponses(value = {
+          @ApiResponse(
+                  responseCode = "200",
+                  description = "User authenticated successfully"),
+          @ApiResponse(
+                  responseCode = "400",
+                  description = "Something is wrong with the request")
+  })
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request
   ) {
     return ResponseEntity.ok(authenticationService.authenticate(request));
+  }
+
+  @Operation(
+          summary = "validate an token"
+  )
+  @ApiResponses(value = {
+          @ApiResponse(
+                  responseCode = "200",
+                  description = "Token validation successful"),
+          @ApiResponse(
+                  responseCode = "400",
+                  description = "Something is wrong with the request")
+  })
+  @PostMapping("/validate")
+  public ResponseEntity<Boolean> validate(
+          @PathVariable String token
+  ) {
+    return ResponseEntity.ok(authenticationService.validate(token));
   }
 
 

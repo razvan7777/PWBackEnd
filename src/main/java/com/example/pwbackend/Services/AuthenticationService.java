@@ -77,4 +77,8 @@ public class AuthenticationService {
     });
     tokenRepository.saveAll(validUserTokens);
   }
+
+  public Boolean validate(String token) {
+    throw new RuntimeException("AuthenticationService.validate() not implemented");
+  }
 }
