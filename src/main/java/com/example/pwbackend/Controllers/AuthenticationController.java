@@ -8,10 +8,12 @@ import com.example.pwbackend.Services.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("auth")
@@ -55,24 +57,5 @@ public class AuthenticationController {
   ) {
     return ResponseEntity.ok(authenticationService.authenticate(request));
   }
-
-  @Operation(
-          summary = "validate an token"
-  )
-  @ApiResponses(value = {
-          @ApiResponse(
-                  responseCode = "200",
-                  description = "Token validation successful"),
-          @ApiResponse(
-                  responseCode = "400",
-                  description = "Something is wrong with the request")
-  })
-  @PostMapping("/validate")
-  public ResponseEntity<Boolean> validate(
-          @PathVariable String token
-  ) {
-    return ResponseEntity.ok(authenticationService.validate(token));
-  }
-
 
 }
