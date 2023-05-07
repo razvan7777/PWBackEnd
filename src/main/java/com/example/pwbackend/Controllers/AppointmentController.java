@@ -1,10 +1,6 @@
 package com.example.pwbackend.Controllers;
 
-import com.example.pwbackend.Models.Appointment;
-import com.example.pwbackend.Models.User;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.example.pwbackend.Models.Entities.Appointment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

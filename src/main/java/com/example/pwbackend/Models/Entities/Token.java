@@ -1,6 +1,7 @@
-package com.example.pwbackend.Models;
+package com.example.pwbackend.Models.Entities;
 
 
+import com.example.pwbackend.Models.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

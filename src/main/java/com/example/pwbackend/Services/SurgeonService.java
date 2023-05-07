@@ -1,6 +1,6 @@
 package com.example.pwbackend.Services;
 
-import com.example.pwbackend.Models.Surgeon;
+import com.example.pwbackend.Models.Entities.Surgeon;
 import com.example.pwbackend.Repositories.SurgeonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +23,13 @@ public class SurgeonService {
 
     public List<Surgeon> getSurgeons() {
         return surgeonRepository.findAll();
+    }
+
+    public boolean deleteSurgeon(Long id) {
+        surgeonRepository.deleteById(id);
+
+        Surgeon surgeon = getSurgeon(id);
+
+        return surgeon == null;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.pwbackend.Models;
+package com.example.pwbackend.Models.Bodies;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class AuthenticationRequest {
 
-  private String token;
+  private String username;
+  private String password;
 }

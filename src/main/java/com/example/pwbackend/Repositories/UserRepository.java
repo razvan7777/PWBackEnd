@@ -1,6 +1,6 @@
 package com.example.pwbackend.Repositories;
 
-import com.example.pwbackend.Models.User;
+import com.example.pwbackend.Models.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

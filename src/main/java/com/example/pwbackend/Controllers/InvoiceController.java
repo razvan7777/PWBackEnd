@@ -1,7 +1,6 @@
 package com.example.pwbackend.Controllers;
 
-import com.example.pwbackend.Models.Invoice;
-import com.example.pwbackend.Models.User;
+import com.example.pwbackend.Models.Entities.Invoice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,23 +1,36 @@
 package com.example.pwbackend.Controllers;
 
-import com.example.pwbackend.Models.Invoice;
-import com.example.pwbackend.Models.Message;
+import com.example.pwbackend.Models.Bodies.MessageBody;
+import com.example.pwbackend.Models.Entities.Message;
+import com.example.pwbackend.Services.MessageService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/messages")
 public class MessageController {
 
+    @Autowired
+    private MessageService messageService;
+
+    @Operation(
+            summary = "add an message",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
     @PostMapping
-    public ResponseEntity<Boolean> addMessage(@RequestBody Message message) {
-        return new ResponseEntity<>(true, HttpStatus.OK);
+    public ResponseEntity<Message> addMessage(@RequestBody MessageBody messageBody) {
+        return new ResponseEntity<>(messageService.addMessage(messageBody), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Invoice> getMessage(@PathVariable Long id) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    @GetMapping("/{chatId}")
+    public ResponseEntity<List<Message>> getMessages(@PathVariable Long chatId) {
+        return new ResponseEntity<>(messageService.getMessages(chatId), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

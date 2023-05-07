@@ -1,4 +1,4 @@
-package com.example.pwbackend.Models;
+package com.example.pwbackend.Models.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -57,5 +57,9 @@ public class Surgeon {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

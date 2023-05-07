@@ -1,23 +1,21 @@
 package com.example.pwbackend.Controllers;
 
 
-import com.example.pwbackend.Models.AuthenticationRequest;
-import com.example.pwbackend.Models.AuthenticationResponse;
-import com.example.pwbackend.Models.RegisterRequest;
+import com.example.pwbackend.Models.Bodies.AuthenticationRequest;
+import com.example.pwbackend.Models.Bodies.AuthenticationResponse;
+import com.example.pwbackend.Models.Bodies.RegisterRequest;
 import com.example.pwbackend.Services.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
 
   private final AuthenticationService authenticationService;

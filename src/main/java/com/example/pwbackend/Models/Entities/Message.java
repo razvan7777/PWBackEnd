@@ -1,5 +1,6 @@
-package com.example.pwbackend.Models;
+package com.example.pwbackend.Models.Entities;
 
+import com.example.pwbackend.Models.Entities.Chat;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -10,15 +11,12 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String text;
-        private Date timestamp;
+    @ManyToOne
+    @JoinColumn(name = "chatId")
+    private Chat chat;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private User sender;
-    @ManyToOne
-    @JoinColumn(name = "receiver_id")
-    private User receiver;
+    private String text;
+    private Date timestamp;
 
     public Long getId() {
         return id;
@@ -44,19 +42,7 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-    public User getSender() {
-        return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 }

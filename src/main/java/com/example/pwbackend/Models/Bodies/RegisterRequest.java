@@ -1,4 +1,4 @@
-package com.example.pwbackend.Models;
+package com.example.pwbackend.Models.Bodies;
 
 
 

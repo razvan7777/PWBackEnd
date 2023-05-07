@@ -1,6 +1,7 @@
-package com.example.pwbackend.Models;
+package com.example.pwbackend.Models.Entities;
 
 
+import com.example.pwbackend.Models.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,6 +44,10 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

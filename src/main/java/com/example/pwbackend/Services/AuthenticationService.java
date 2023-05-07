@@ -3,6 +3,11 @@ package com.example.pwbackend.Services;
 
 
 import com.example.pwbackend.Models.*;
+import com.example.pwbackend.Models.Bodies.AuthenticationRequest;
+import com.example.pwbackend.Models.Bodies.AuthenticationResponse;
+import com.example.pwbackend.Models.Bodies.RegisterRequest;
+import com.example.pwbackend.Models.Entities.Token;
+import com.example.pwbackend.Models.Entities.User;
 import com.example.pwbackend.Repositories.TokenRepository;
 import com.example.pwbackend.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;

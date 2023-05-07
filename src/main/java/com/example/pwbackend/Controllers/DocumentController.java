@@ -1,6 +1,6 @@
 package com.example.pwbackend.Controllers;
 
-import com.example.pwbackend.Models.Document;
+import com.example.pwbackend.Models.Entities.Document;
 import com.example.pwbackend.Services.DocumentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

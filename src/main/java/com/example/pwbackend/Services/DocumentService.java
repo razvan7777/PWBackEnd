@@ -1,7 +1,7 @@
 package com.example.pwbackend.Services;
 
-import com.example.pwbackend.Models.Document;
-import com.example.pwbackend.Repositories.DocumentRepo;
+import com.example.pwbackend.Models.Entities.Document;
+import com.example.pwbackend.Repositories.DocumentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class DocumentService {
 
     @Autowired
-    private DocumentRepo documentRepository;
+    private DocumentRepository documentRepository;
 
     public Document getDocumentById(Long docId) {
         Optional<Document> document = documentRepository.findById(docId);
