@@ -31,15 +31,23 @@ public class AuthenticationService {
   private AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
+
     User user = User.builder()
+            .firstName(request.getFirstName())
+            .lastName(request.getLastName())
             .username(request.getUsername())
+            .email(request.getEmail())
             .password(passwordEncoder.encode(request.getPassword()))
             .role(request.getRole())
             .build();
+
     User savedUser = userRepository.save(user);
+
     String jwtToken = jwtService.generateToken(user);
     saveUserToken(savedUser, jwtToken);
+
     return AuthenticationResponse.builder()
+        .userId(savedUser.getId())
         .token(jwtToken)
         .build();
   }

@@ -1,5 +1,6 @@
 package com.example.pwbackend.Models.Entities;
 
+import com.example.pwbackend.Models.Bodies.UserBody;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -17,7 +18,7 @@ public class Surgeon {
 
     private Long rating;
     private String description;
-    private String image_url;
+    private String imageUrl;
 
     public String getTitle() {
         return title;
@@ -43,12 +44,12 @@ public class Surgeon {
         this.description = description;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public void setImage_url(String image_url) {
-        this.image_url = image_url;
+        this.imageUrl = image_url;
     }
 
     public User getUser() {
