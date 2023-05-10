@@ -14,12 +14,9 @@ public class SurgeonBody {
 
     private Long id;
 
-    private UserBody user;
+    private UserBody userBody;
     private String title;
     private String description;
     private Long rating;
-    private String imageUrl;
-
-
 
 }

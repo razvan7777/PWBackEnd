@@ -1,10 +1,12 @@
 package com.example.pwbackend.Models.Entities;
 
-import com.example.pwbackend.Models.Bodies.UserBody;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Surgeon {
 
     @Id
@@ -12,13 +14,11 @@ public class Surgeon {
     private Long id;
 
     @OneToOne
-    @JsonIgnore
     private User user;
     private String title;
 
     private Long rating;
     private String description;
-    private String imageUrl;
 
     public String getTitle() {
         return title;
@@ -42,14 +42,6 @@ public class Surgeon {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImage_url(String image_url) {
-        this.imageUrl = image_url;
     }
 
     public User getUser() {

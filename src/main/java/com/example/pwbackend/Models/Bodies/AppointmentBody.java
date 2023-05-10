@@ -1,22 +1,24 @@
 package com.example.pwbackend.Models.Bodies;
 
-import com.example.pwbackend.Models.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserBody {
+public class AppointmentBody {
 
     private Long id;
-    private Role role;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String imageUrl;
 
+    private Long userId;
+
+    private Long surgeonId;
+
+    private Date dateStart;
+    private Date dateEnd;
 }

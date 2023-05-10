@@ -16,7 +16,10 @@ public class Message {
     private Chat chat;
 
     private String text;
-    private Date timestamp;
+
+    private Boolean sentBySurgeon;
+
+    private Date dateTimestamp;
 
     public Long getId() {
         return id;
@@ -34,15 +37,27 @@ public class Message {
         this.text = text;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Date getDateTimestamp() {
+        return dateTimestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setDateTimestamp(Date dateTimestamp) {
+        this.dateTimestamp = dateTimestamp;
     }
 
     public void setChat(Chat chat) {
         this.chat = chat;
+    }
+
+    public Boolean getSentBySurgeon() {
+        return sentBySurgeon;
+    }
+
+    public void setSentBySurgeon(Boolean sentBySurgeon) {
+        this.sentBySurgeon = sentBySurgeon;
+    }
+
+    public Long getChatId() {
+        return chat.getId();
     }
 }

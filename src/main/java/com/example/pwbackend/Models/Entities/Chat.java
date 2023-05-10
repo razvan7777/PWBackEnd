@@ -4,59 +4,52 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import jakarta.persistence.*;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import java.util.List;
 
 @Entity
 @ApiModel
-@ToString
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
-    private User user;
+    private User user1;
 
     @ManyToOne
-    @JsonIgnore
-    private Surgeon surgeon;
+    private User user2;
 
     @OneToMany(mappedBy = "chat")
+    @Cascade(value = CascadeType.ALL)
     List<Message> messages;
-
-    public Long getSurgeonId()
-    {
-        return surgeon.getId();
-    }
-
-    public Long getUserId()
-    {
-        return user.getId();
-    }
 
     public Long getId() {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Surgeon getSurgeon() {
-        return surgeon;
+    public User getUser1() {
+        return user1;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser1(User user1) {
+        this.user1 = user1;
     }
 
-    public void setSurgeon(Surgeon surgeon) {
-        this.surgeon = surgeon;
+    public User getUser2() {
+        return user2;
     }
 
-    @JsonIgnore
+    public void setUser2(User user2) {
+        this.user2 = user2;
+    }
+
     public List<Message> getMessages() {
         return messages;
     }

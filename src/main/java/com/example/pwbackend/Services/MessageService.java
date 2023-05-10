@@ -8,6 +8,7 @@ import com.example.pwbackend.Repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,24 +19,43 @@ public class MessageService {
     @Autowired
     private ChatRepository chatRepository;
 
-    public List<Message> getMessages(Long chatId)
+    public List<MessageBody> getMessages(Long chatId)
     {
         Chat chat = chatRepository.findById(chatId).orElse(null);
 
         if (chat == null)
             return null;
 
-        return chat.getMessages();
+        List<Message> messages = chat.getMessages();
+
+        List<MessageBody> messageBodies = new ArrayList<>();
+
+        messages.forEach(message -> {
+            messageBodies.add(new MessageBody(
+                    message.getText(),
+                    message.getChatId(),
+                    message.getSentBySurgeon()
+            ));
+        });
+
+        return messageBodies;
+
     }
 
-    public Message addMessage(MessageBody messageBody)
+    public MessageBody addMessage(MessageBody messageBody)
     {
         Message message = new Message();
 
         message.setChat(chatRepository.findById(messageBody.getChatId()).orElse(null));
         message.setText(messageBody.getText());
-        message.setTimestamp(new Date());
+        message.setDateTimestamp(new Date());
 
-        return messageRepository.save(message);
+        Message savedMessage = messageRepository.save(message);
+
+        return new MessageBody(
+                savedMessage.getText(),
+                savedMessage.getChatId(),
+                savedMessage.getSentBySurgeon()
+        );
     }
 }

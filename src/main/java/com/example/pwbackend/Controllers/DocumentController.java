@@ -3,8 +3,9 @@ package com.example.pwbackend.Controllers;
 import com.example.pwbackend.Models.Entities.Document;
 import com.example.pwbackend.Services.DocumentService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -25,16 +26,12 @@ public class DocumentController {
 
     @Operation(
             summary = "create an document",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Document uploaded successfully"),
+                    @ApiResponse(responseCode = "400", description = "Something is wrong with the request", content = @Content())
+            }
     )
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "201",
-                    description = "Document uploaded successfully"),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Something is wrong with the request")
-    })
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<String> addDocument(@RequestPart MultipartFile file) {
         try {
@@ -47,16 +44,12 @@ public class DocumentController {
 
     @Operation(
             summary = "get an document",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                @ApiResponse(responseCode = "200", description = "Document downloaded successfully"),
+                @ApiResponse(responseCode = "400", description = "Something is wrong with the request", content = @Content())
+            }
     )
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Document downloaded successfully"),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Something is wrong with the request")
-    })
     @GetMapping("/{docId}")
     public ResponseEntity<ByteArrayResource> downloadDocument(@PathVariable Long docId) {
         Document document = documentService.getDocumentById(docId);
@@ -68,20 +61,15 @@ public class DocumentController {
                 .body(resource);
     }
 
-
-
     @Operation(
             summary = "delete an document",
-            security = @SecurityRequirement(name = "bearerAuth")
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                @ApiResponse(responseCode = "200", description = "Document deleted successfully"),
+                @ApiResponse(responseCode = "400", description = "Something is wrong with the request", content = @Content(examples = @ExampleObject(value = "false")))
+            }
+
     )
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Document uploaded successfully"),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Something is wrong with the request")
-    })
     @DeleteMapping("/{docId}")
     public void deleteDocument(@PathVariable Long docId) {
         documentService.deleteDocument(docId);
