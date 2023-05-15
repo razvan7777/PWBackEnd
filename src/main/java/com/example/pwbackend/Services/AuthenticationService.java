@@ -43,7 +43,7 @@ public class AuthenticationService {
 
     User savedUser = userRepository.save(user);
 
-    String jwtToken = jwtService.generateToken(user);
+    String jwtToken = jwtService.generateToken(savedUser);
     saveUserToken(savedUser, jwtToken);
 
     return AuthenticationResponse.builder()
@@ -59,12 +59,16 @@ public class AuthenticationService {
             request.getPassword()
         )
     );
+
     User user = userRepository.getUserByUsername(request.getUsername())
         .orElseThrow();
+
     var jwtToken = jwtService.generateToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
+
     return AuthenticationResponse.builder()
+        .userId(user.getId())
         .token(jwtToken)
         .build();
   }

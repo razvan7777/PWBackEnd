@@ -48,6 +48,7 @@ public class MessageService {
 
         message.setChat(chatRepository.findById(messageBody.getChatId()).orElse(null));
         message.setText(messageBody.getText());
+        message.setSentBySurgeon(messageBody.getSentBySurgeon());
         message.setDateTimestamp(new Date());
 
         Message savedMessage = messageRepository.save(message);
