@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/documents")
@@ -33,12 +34,18 @@ public class DocumentController {
             }
     )
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<String> addDocument(@RequestPart MultipartFile file) {
+    public ResponseEntity<Long> addDocument(@RequestPart MultipartFile file) {
+
         try {
-            documentService.addDocument(file);
-            return ResponseEntity.ok("File uploaded successfully");
+            Document doc = documentService.addDocument(file);
+
+            URI location = URI.create("/documents/" + doc.getId());
+
+            return ResponseEntity
+                    .created(location)
+                    .body(doc.getId());
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file: " + e.getMessage());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 

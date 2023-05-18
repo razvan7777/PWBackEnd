@@ -15,6 +15,9 @@ public class Message {
     @JoinColumn(name = "chatId")
     private Chat chat;
 
+    @OneToOne
+    private Document document;
+
     private String text;
 
     private Boolean sentBySurgeon;
@@ -59,5 +62,17 @@ public class Message {
 
     public Long getChatId() {
         return chat.getId();
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
     }
 }

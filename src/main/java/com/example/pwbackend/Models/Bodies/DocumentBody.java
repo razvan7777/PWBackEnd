@@ -1,5 +1,6 @@
 package com.example.pwbackend.Models.Bodies;
 
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,14 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageBody {
-    private Long chatId;
+public class DocumentBody {
 
-    private Long docId;
-
-    private String text;
-
-    private Boolean sentBySurgeon;
-
-
+    @Lob
+    private byte[] data;
 }

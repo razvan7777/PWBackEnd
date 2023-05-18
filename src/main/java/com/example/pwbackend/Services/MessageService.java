@@ -2,8 +2,10 @@ package com.example.pwbackend.Services;
 
 import com.example.pwbackend.Models.Bodies.MessageBody;
 import com.example.pwbackend.Models.Entities.Chat;
+import com.example.pwbackend.Models.Entities.Document;
 import com.example.pwbackend.Models.Entities.Message;
 import com.example.pwbackend.Repositories.ChatRepository;
+import com.example.pwbackend.Repositories.DocumentRepository;
 import com.example.pwbackend.Repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class MessageService {
     private MessageRepository messageRepository;
     @Autowired
     private ChatRepository chatRepository;
+    @Autowired
+    private DocumentRepository documentRepository;
 
     public List<MessageBody> getMessages(Long chatId)
     {
@@ -31,11 +35,23 @@ public class MessageService {
         List<MessageBody> messageBodies = new ArrayList<>();
 
         messages.forEach(message -> {
-            messageBodies.add(new MessageBody(
-                    message.getText(),
-                    message.getChatId(),
-                    message.getSentBySurgeon()
-            ));
+            if (message.getDocument() != null) {
+                messageBodies.add(new MessageBody(
+                        message.getChatId(),
+                        message.getDocument().getId(),
+                        message.getDocument().getFileName(),
+                        message.getSentBySurgeon()
+                ));
+            }
+            else
+            {
+                messageBodies.add(new MessageBody(
+                        message.getChatId(),
+                        null,
+                        message.getText(),
+                        message.getSentBySurgeon()
+                ));
+            }
         });
 
         return messageBodies;
@@ -51,12 +67,24 @@ public class MessageService {
         message.setSentBySurgeon(messageBody.getSentBySurgeon());
         message.setDateTimestamp(new Date());
 
+        if (messageBody.getDocId() != null)
+            message.setDocument(documentRepository.findById(messageBody.getDocId()).orElse(null));
+
         Message savedMessage = messageRepository.save(message);
 
-        return new MessageBody(
-                savedMessage.getText(),
-                savedMessage.getChatId(),
-                savedMessage.getSentBySurgeon()
-        );
+        if(savedMessage.getDocument() != null)
+            return new MessageBody(
+                    savedMessage.getChatId(),
+                    savedMessage.getDocument().getId(),
+                    savedMessage.getDocument().getFileName(),
+                    savedMessage.getSentBySurgeon()
+            );
+        else
+            return new MessageBody(
+              savedMessage.getChatId(),
+              null,
+              savedMessage.getText(),
+              savedMessage.getSentBySurgeon()
+            );
     }
 }
