@@ -8,6 +8,9 @@ import com.example.pwbackend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AppointmentService {
 
@@ -24,7 +27,6 @@ public class AppointmentService {
     {
         Appointment appointment = new Appointment();
 
-        appointment.setId(appointmentBody.getId());
         appointment.setUser(userRepository.findById(appointmentBody.getUserId()).orElse(null));
         appointment.setSurgeon(surgeonRepository.findById(appointmentBody.getSurgeonId()).orElse(null));
         appointment.setdateStart(appointmentBody.getDateStart());
@@ -46,20 +48,48 @@ public class AppointmentService {
         );
     }
 
-    public AppointmentBody getAppointment(Long id)
+    public List<AppointmentBody> getAppointmentsBySurgeonId(Long surgeonId)
     {
-        Appointment appointment = appointmentRepository.findById(id).orElse(null);
+        List<Appointment> appointments = appointmentRepository.findBySurgeonId(surgeonId).orElse(null);
 
-        if (appointment == null)
+        if (appointments == null)
             return  null;
 
-        return new AppointmentBody(
-                appointment.getId(),
-                appointment.getUser().getId(),
-                appointment.getSurgeon().getId(),
-                appointment.getDateStart(),
-                appointment.getDateEnd()
-        );
+        List<AppointmentBody> appointmentBodies = new ArrayList<>();
+
+        appointments.forEach(appointment -> appointmentBodies.add(
+                new AppointmentBody(
+                        appointment.getId(),
+                        appointment.getUser().getId(),
+                        appointment.getSurgeon().getId(),
+                        appointment.getDateStart(),
+                        appointment.getDateEnd()
+                )
+        ));
+
+        return appointmentBodies;
+    }
+
+    public List<AppointmentBody> getAppointmentsByUserId(Long userId)
+    {
+        List<Appointment> appointments = appointmentRepository.findByUserId(userId).orElse(null);
+
+        if (appointments == null)
+            return  null;
+
+        List<AppointmentBody> appointmentBodies = new ArrayList<>();
+
+        appointments.forEach(appointment -> appointmentBodies.add(
+            new AppointmentBody(
+                    appointment.getId(),
+                    appointment.getUser().getId(),
+                    appointment.getSurgeon().getId(),
+                    appointment.getDateStart(),
+                    appointment.getDateEnd()
+            )
+        ));
+
+        return appointmentBodies;
     }
 
     public Boolean deleteAppointment(Long id)

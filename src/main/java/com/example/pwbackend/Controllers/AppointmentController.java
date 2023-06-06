@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
@@ -48,12 +50,33 @@ public class AppointmentController {
                 @ApiResponse(responseCode = "404", description = "appointment not found", content = @Content())
             }
     )
-    @GetMapping("/{id}")
-    public ResponseEntity<AppointmentBody> getAppointment(@PathVariable Long id) {
-        AppointmentBody appointmentBody = appointmentService.getAppointment(id);
+    @GetMapping("/surgeon/{surgeonId}")
+    public ResponseEntity<List<AppointmentBody>> getAppointmentsBySurgeonId(@PathVariable Long surgeonId) {
+        List<AppointmentBody> appointmentBody = appointmentService.getAppointmentsBySurgeonId(surgeonId);
         if(appointmentBody != null)
         {
             return new ResponseEntity<>(appointmentBody, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Operation(
+            summary = "get appointment",
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "appointment got successfully"),
+                    @ApiResponse(responseCode = "404", description = "appointment not found", content = @Content())
+            }
+    )
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<AppointmentBody>> getAppointmentsByUserId(@PathVariable Long userId) {
+        List<AppointmentBody> appointmentBodies = appointmentService.getAppointmentsByUserId(userId);
+        if(appointmentBodies != null)
+        {
+            return new ResponseEntity<>(appointmentBodies, HttpStatus.OK);
         }
         else
         {
